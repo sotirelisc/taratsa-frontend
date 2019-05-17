@@ -12,7 +12,7 @@ import TaratsaList from './taratses/TaratsaList';
 class App extends React.Component {
   render() {
     return (
-      <div className="ui container main-view">
+      <div className="container">
         <Router history={history}>
           <div>
             <Header />
