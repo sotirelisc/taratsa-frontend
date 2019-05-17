@@ -37,15 +37,15 @@ class Header extends React.Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink to="">About</NavLink>
+                <NavLink tag={Link} to="/taratses/new">Create Taratsa</NavLink>
               </NavItem>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
                   User
                 </DropdownToggle>
                 <DropdownMenu right>
-                  <DropdownItem>
-                    Option 1
+                  <DropdownItem tag={Link} to="/users/signup">
+                    Sign Up
                   </DropdownItem>
                   <DropdownItem>
                     Option 2

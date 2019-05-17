@@ -8,6 +8,10 @@ import history from '../history';
 import Header from './Header';
 
 import TaratsaList from './taratses/TaratsaList';
+import TaratsaShow from './taratses/TaratsaShow';
+import TaratsaCreate from './taratses/TaratsaCreate';
+
+import UserCreate from './users/UserCreate';
 
 class App extends React.Component {
   render() {
@@ -18,6 +22,9 @@ class App extends React.Component {
             <Header />
             <Switch>
               <Route path="/" exact component={TaratsaList} />
+              <Route path="/taratses/new" exact component={TaratsaCreate} />
+              <Route path="/taratses/:id" exact component={TaratsaShow} />
+              <Route path="/users/signup" exact component={UserCreate} />
             </Switch>
           </div>
         </Router>
