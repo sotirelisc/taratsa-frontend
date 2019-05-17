@@ -2,6 +2,7 @@ import {
   SIGN_IN,
   SIGN_OUT,
   FETCH_USER,
+  CREATE_USER
 } from '../actions/types';
 
 const initialState = {
@@ -24,6 +25,11 @@ export default (state = initialState, action) => {
         userId: null
       };
     case FETCH_USER:
+      return {
+        ...state,
+        user: action.payload
+      };
+    case CREATE_USER:
       return {
         ...state,
         user: action.payload

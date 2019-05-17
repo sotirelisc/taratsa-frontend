@@ -50,6 +50,15 @@ class UserForm extends React.Component {
           type="password"
           component={this.renderInput}
         />
+        <FormGroup>
+          <Label>Role</Label>
+          <Input tag={Field} component="select" name="role">
+            <option></option>
+            <option value="Regular User">Regular User</option>
+            <option value="Taratsa Owner">Taratsa Owner</option>
+            <option value="Chef">Chef</option>
+          </Input>
+        </FormGroup>
         <Button color="info">
           Sign Up
         </Button>
@@ -58,7 +67,7 @@ class UserForm extends React.Component {
   }
 }
 
-const validate = ({ email, password }) => {
+const validate = ({ email, password, role }) => {
   const errors = {};
 
   if (!email) {
@@ -67,6 +76,10 @@ const validate = ({ email, password }) => {
 
   if (!password) {
     errors.password = 'Please enter a password.'
+  }
+
+  if (!role) {
+    errors.role = 'Please select a role.'
   }
 
   return errors;
