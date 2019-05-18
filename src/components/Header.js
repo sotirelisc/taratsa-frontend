@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import {
   Collapse,
   Navbar,
@@ -23,12 +24,51 @@ class Header extends React.Component {
       isOpen: false
     };
   }
+
   toggle() {
     this.setState({
       isOpen: !this.state.isOpen
     });
   }
+
+  renderMenu() {
+    if (this.props.auth.isSignedIn) {
+      return (
+        <React.Fragment>
+          <NavItem>
+            <NavLink tag={Link} to="/taratses/new">Create Taratsa</NavLink>
+          </NavItem>
+          <UncontrolledDropdown nav inNavbar>
+            <DropdownToggle nav caret>
+              {this.props.auth.userData.firstname}
+            </DropdownToggle>
+            <DropdownMenu right>
+              <DropdownItem tag={Link} to="/users/profile">
+                Profile
+              </DropdownItem>
+              <DropdownItem divider />
+              <DropdownItem tag={Link} to="/users/signout">
+                Sign Out
+              </DropdownItem>
+            </DropdownMenu>
+          </UncontrolledDropdown>
+        </React.Fragment>
+      );
+    }
+    return (
+      <React.Fragment>
+        <NavItem>
+          <NavLink tag={Link} to="/users/signup">Sign Up</NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink tag={Link} to="/users/signin">Sign In</NavLink>
+        </NavItem>
+      </React.Fragment>
+    );
+  }
+
   render() {
+    console.log(this.props);
     return (
       <div>
         <Navbar color="light" light expand="md">
@@ -36,26 +76,7 @@ class Header extends React.Component {
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
-              <NavItem>
-                <NavLink tag={Link} to="/taratses/new">Create Taratsa</NavLink>
-              </NavItem>
-              <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret>
-                  User
-                </DropdownToggle>
-                <DropdownMenu right>
-                  <DropdownItem tag={Link} to="/users/signup">
-                    Sign Up
-                  </DropdownItem>
-                  <DropdownItem tag={Link} to="/users/signin">
-                    Sign In
-                  </DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem tag={Link} to="/users/signout">
-                    Sign Out
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
+              {this.renderMenu()}
             </Nav>
           </Collapse>
         </Navbar>
@@ -64,4 +85,12 @@ class Header extends React.Component {
   }
 }
 
-export default Header;
+const mapStateToProps = state => {
+  return {
+    auth: state.auth
+  };
+};
+
+export default connect(mapStateToProps, {
+  
+})(Header);

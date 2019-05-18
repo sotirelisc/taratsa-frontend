@@ -8,3 +8,5 @@ export const CREATE_USER = 'CREATE_USER';
 export const FETCH_TARATSES = 'FETCH_TARATSES';
 export const FETCH_TARATSA = 'FETCH_TARATSA';
 export const CREATE_TARATSA = 'CREATE_TARATSA';
+
+export const FETCH_CHEFS = 'FETCH_CHEFS';

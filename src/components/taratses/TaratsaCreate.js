@@ -1,9 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { createTaratsa } from '../../actions';
+import { createTaratsa, fetchChefs } from '../../actions';
 import TaratsaForm from './TaratsaForm';
 
 class TaratsaCreate extends React.Component {
+  componentDidMount() {
+    this.props.fetchChefs();
+  }
+
   onSubmit = formValues => {
     this.props.createTaratsa(formValues);
   }
@@ -14,6 +18,7 @@ class TaratsaCreate extends React.Component {
         <h3>Create a Taratsa</h3>
         <TaratsaForm
           onSubmit={this.onSubmit}
+          chefs={this.props.chefs}
         />
       </div>
     );
@@ -21,10 +26,12 @@ class TaratsaCreate extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return {};
+  return {
+    chefs: Object.values(state.chefs),
+  };
 };
 
-export default connect(
-  mapStateToProps,
-  { createTaratsa }
-)(TaratsaCreate);
+export default connect(mapStateToProps, {
+  createTaratsa,
+  fetchChefs
+})(TaratsaCreate);

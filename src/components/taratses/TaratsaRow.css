@@ -1,0 +1,8 @@
+h5 {
+  color: black;
+}
+
+a:hover {
+  cursor: hand;
+  text-decoration: none;
+}

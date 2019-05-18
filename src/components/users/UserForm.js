@@ -41,6 +41,16 @@ class UserForm extends React.Component {
       return (
         <React.Fragment>
           <Field
+            name="firstname"
+            label="First Name"
+            component={this.renderInput}
+          />
+          <Field
+            name="lastname"
+            label="Last Name"
+            component={this.renderInput}
+          />
+          <Field
             name="phone"
             label="Phone Number"
             type="phone"

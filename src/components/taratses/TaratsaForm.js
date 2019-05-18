@@ -20,12 +20,12 @@ class TaratsaForm extends React.Component {
     }
   }
 
-  renderInput = ({ input, label, meta }) => {
+  renderInput = ({ input, type, label, meta }) => {
     const className = `field ${meta.error && meta.touched ? 'error' : ''}`;
     return (
       <FormGroup className={className}>
         <Label>{label}</Label>
-        <Input {...input} autoComplete="off" />
+        <Input {...input} type={type} autoComplete="off" />
         {this.renderError(meta)}
       </FormGroup>
     );
@@ -33,6 +33,26 @@ class TaratsaForm extends React.Component {
 
   onSubmit = formValues => {
     this.props.onSubmit(formValues);
+  }
+
+  renderChefList() {
+    if (this.props.chefs) {
+      return (
+        <FormGroup>
+          <Label>Choose Chef</Label>
+          <Input tag={Field} component="select" name="chef">
+            <option></option>
+            {this.props.chefs.map(chef => {
+              return (
+                <option value={chef.id} key={chef.id}>
+                  {chef.firstname + ' ' + chef.lastname}
+                </option>
+              );
+            })}
+          </Input>
+        </FormGroup>
+      );
+    }
   }
 
   render() {
@@ -49,10 +69,12 @@ class TaratsaForm extends React.Component {
           component={this.renderInput}
         />
         <Field
-          name="location"
-          label="Enter Location"
+          name="price"
+          label="Enter Price"
           component={this.renderInput}
+          type="number"
         />
+        {this.renderChefList()}
         <Button color="info">
           Create Taratsa
         </Button>
@@ -61,7 +83,7 @@ class TaratsaForm extends React.Component {
   }
 }
 
-const validate = ({ title, description, location }) => {
+const validate = ({ title, description, price }) => {
   const errors = {};
 
   if (!title) {
@@ -72,8 +94,8 @@ const validate = ({ title, description, location }) => {
     errors.description = 'Please enter a description.'
   }
 
-  if (!location) {
-    errors.location = 'Please enter a location.'
+  if (!price) {
+    errors.price = 'Please enter a price.'
   }
 
   return errors;

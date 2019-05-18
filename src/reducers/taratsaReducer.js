@@ -22,7 +22,7 @@ export default (state = initialState, action) => {
     case FETCH_TARATSES:
       return {
         ...state,
-        ..._.mapKeys(action.payload, '_id')
+        ..._.mapKeys(action.payload, 'id')
       };
     default:
       return state;

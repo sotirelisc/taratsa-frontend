@@ -8,7 +8,8 @@ import {
   SIGN_OUT,
   FETCH_TARATSES,
   FETCH_TARATSA,
-  CREATE_TARATSA
+  CREATE_TARATSA,
+  FETCH_CHEFS
 } from './types';
 
 export const signIn = formValues => async dispatch => {
@@ -78,6 +79,17 @@ export const fetchTaratsa = id => async dispatch => {
 
   dispatch({
     type: FETCH_TARATSA,
+    payload: response.data
+  });
+};
+
+export const fetchChefs = () => async dispatch => {
+  const response = await taratses.get('/users/chefs');
+
+  console.log(response);
+
+  dispatch({
+    type: FETCH_CHEFS,
     payload: response.data
   });
 };
