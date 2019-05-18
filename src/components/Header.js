@@ -51,7 +51,7 @@ class Header extends React.Component {
                     Sign In
                   </DropdownItem>
                   <DropdownItem divider />
-                  <DropdownItem>
+                  <DropdownItem tag={Link} to="/users/signout">
                     Sign Out
                   </DropdownItem>
                 </DropdownMenu>

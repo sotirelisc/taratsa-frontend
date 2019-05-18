@@ -39,15 +39,23 @@ class UserForm extends React.Component {
   renderRole() {
     if (this.props.forSignUp) {
       return (
-        <FormGroup>
-          <Label>Role</Label>
-          <Input tag={Field} component="select" name="role">
-            <option></option>
-            <option value="Regular User">Regular User</option>
-            <option value="Taratsa Owner">Taratsa Owner</option>
-            <option value="Chef">Chef</option>
-          </Input>
-        </FormGroup>
+        <React.Fragment>
+          <Field
+            name="phone"
+            label="Phone Number"
+            type="phone"
+            component={this.renderInput}
+          />
+          <FormGroup>
+            <Label>Role</Label>
+            <Input tag={Field} component="select" name="role">
+              <option></option>
+              <option value="user">Regular User</option>
+              <option value="host">Taratsa Host</option>
+              <option value="chef">Chef</option>
+            </Input>
+          </FormGroup>
+        </React.Fragment>
       );
     }
   }

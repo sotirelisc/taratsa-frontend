@@ -9,9 +9,10 @@ import {
 
 const initialState = {
   isSignedIn: false,
-  userId: null,
+  userToken: null,
   error: null,
-  isLoading: false
+  isLoading: false,
+  userData: null
 };
 
 export default (state = initialState, action) => {
@@ -26,9 +27,10 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isSignedIn: true,
-        userId: action.payload,
+        userToken: action.payload.token,
         error: null,
-        isLoading: false
+        isLoading: false,
+        userData: action.payload.user_info
       };
     case SIGN_IN_FAILURE:
       return {
@@ -39,9 +41,7 @@ export default (state = initialState, action) => {
       };
     case SIGN_OUT:
       return {
-        ...state,
-        isSignedIn: false,
-        userId: null
+        ...initialState
       };
     case FETCH_USER:
       return {

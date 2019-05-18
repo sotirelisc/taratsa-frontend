@@ -17,29 +17,33 @@ export const signIn = formValues => async dispatch => {
   });
 
   try {
-    const response = await taratses.post('/users/signin', formValues);
+    const response = await taratses.post('/users/login', formValues);
+    console.log(response)
     dispatch({
       type: SIGN_IN_SUCCESS,
       payload: response.data
     });
+
+    history.push('/');
   } catch(e) {
+    console.log(e);
     dispatch({
       type: SIGN_IN_FAILURE,
       payload: e
     });
   }
+};
+
+export const signOut = () => dispatch => {
+  dispatch({
+    type: SIGN_OUT
+  });
 
   history.push('/');
 };
 
-export const signOut = () => {
-  return {
-    type: SIGN_OUT
-  };
-};
-
 export const createUser = formValues => async dispatch => {
-  const response = await taratses.post('/users', formValues);
+  const response = await taratses.post('/users/register', formValues);
 
   dispatch({
     type: CREATE_USER,
