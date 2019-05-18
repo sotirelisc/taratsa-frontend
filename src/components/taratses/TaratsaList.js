@@ -50,6 +50,7 @@ class TaratsaList extends React.Component {
         <Spinner className="text-center" style={{ width: '3rem', height: '3rem' }} type="grow" />
       );
     }
+
     return (
       <Row style={{ marginTop: '1em' }}>
         <Col md="9">
@@ -65,7 +66,7 @@ class TaratsaList extends React.Component {
               name="date"
               id="exampleDate"
               placeholder="date placeholder"
-              value="2019-05-19"
+              value={this.props.selectedDate ? this.props.selectedDate : ''}
               onChange={e => this.onDateChange(e)}
             />
           </FormGroup>
@@ -78,6 +79,7 @@ class TaratsaList extends React.Component {
 const mapStateToProps = state => {
   return {
     taratses: Object.values(state.taratses),
+    selectedDate: state.date.selectedDate
   };
 };
 

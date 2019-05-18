@@ -170,9 +170,9 @@ const mapStateToProps = (state, ownProps) => {
     taratsa: state.taratses[ownProps.match.params.id],
     selectedDate: state.date.selectedDate,
     userToken: state.auth.userToken,
-    isBookingLoading: state.taratses.isBookingLoading,
-    error: state.taratses.error,
-    reservation: state.taratses.reservation
+    isBookingLoading: state.booking.isBookingLoading,
+    error: state.booking.error,
+    reservation: state.booking.reservation
   };
 };
 
