@@ -11,7 +11,9 @@ import {
   CREATE_TARATSA,
   FETCH_CHEFS,
   SELECT_DATE,
-  BOOK_TARATSA
+  BOOK_TARATSA,
+  BOOK_TARATSA_SUCCESS,
+  BOOK_TARATSA_FAILURE,
 } from './types';
 
 export const selectDate = date => {
@@ -66,8 +68,8 @@ export const createTaratsa = (userToken, formValues) => async dispatch => {
     const response = await taratses.post('/taratses', {
       ...formValues,
       token: userToken,
-      long: '123456',
-      lat: '123456'
+      long: '26.709238',
+      lat: '37.801206'
     });
   
     dispatch({
@@ -116,6 +118,10 @@ export const fetchChefs = () => async dispatch => {
 };
 
 export const bookTaratsa = (userToken, taratsaId, reservationDate) => async dispatch => {
+  dispatch({
+    type: BOOK_TARATSA
+  });
+
   try {
     const response = await taratses.post('/reservations', {
       token: userToken,
@@ -125,12 +131,16 @@ export const bookTaratsa = (userToken, taratsaId, reservationDate) => async disp
     });
   
     console.log(response);
+    
     dispatch({
-      type: BOOK_TARATSA,
+      type: BOOK_TARATSA_SUCCESS,
       payload: response.data
     });
-  
   } catch(e) {
     console.log(e);
+    dispatch({
+      type: BOOK_TARATSA_FAILURE,
+      payload: e
+    });
   }
 };

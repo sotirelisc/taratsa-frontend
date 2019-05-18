@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { 
   Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle, Button,
-  Spinner, Row, Col, CardHeader
+  Spinner, Row, Col, CardHeader,
+  Alert
 } from 'reactstrap';
 import {
   fetchTaratsa,
@@ -27,6 +28,23 @@ class TaratsaShow extends React.Component {
     const { id } = this.props.match.params;
 
     this.props.bookTaratsa(this.props.userToken, id, this.props.selectedDate);
+  }
+
+  renderMessage() {
+    if (this.props.reservation) {
+      return (
+        <Alert style={{ marginTop: '1em' }} color="success">
+          You have successfully booked <strong>{this.props.taratsa.name}</strong> for <strong>{this.props.selectedDate}</strong>!
+        </Alert>
+      );
+    }
+    if (this.props.error) {
+      return (
+        <Alert style={{ marginTop: '1em' }} color="danger">
+          {this.props.error.message}
+        </Alert>
+      );
+    }
   }
 
   renderCard() {
@@ -67,8 +85,9 @@ class TaratsaShow extends React.Component {
             className="btn-block"
             style={{ marginTop: '2em' }}
             color="info"
+            disabled={this.props.isBookingLoading || (this.props.reservation ? true : false)}
           >
-            Pay with Pay
+            {this.props.isBookingLoading ? 'Please wait...' : 'Pay with Pay'}
           </Button>
         </CardBody>
       </Card>
@@ -86,6 +105,7 @@ class TaratsaShow extends React.Component {
 
     return (
       <React.Fragment>
+        {this.renderMessage()}
         <Row style={{ marginTop: '1em' }}>
           <Col md="7">
             <Card>
@@ -149,7 +169,10 @@ const mapStateToProps = (state, ownProps) => {
   return {
     taratsa: state.taratses[ownProps.match.params.id],
     selectedDate: state.date.selectedDate,
-    userToken: state.auth.userToken
+    userToken: state.auth.userToken,
+    isBookingLoading: state.taratses.isBookingLoading,
+    error: state.taratses.error,
+    reservation: state.taratses.reservation
   };
 };
 
