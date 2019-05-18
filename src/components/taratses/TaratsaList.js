@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import TaratsaRow from './TaratsaRow';
 import {
-  CardColumns
+  CardColumns,
+  Spinner
 } from 'reactstrap';
 import { fetchTaratses } from '../../actions';
 
@@ -30,10 +31,14 @@ class TaratsaList extends React.Component {
         );
       });
     }
-    return 'Loading';
   }
 
   render() {
+    if (!this.props.taratses) {
+      return (
+        <Spinner style={{ width: '3rem', height: '3rem' }} type="grow" />
+      );
+    }
     return (
       <CardColumns style={{ marginTop: '1em' }}>
         {this.renderList()}

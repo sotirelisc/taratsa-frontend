@@ -84,7 +84,7 @@ export const fetchTaratses = () => async dispatch => {
 
 export const fetchTaratsa = id => async dispatch => {
   const response = await taratses.get(`/taratses/${id}`);
-
+  
   dispatch({
     type: FETCH_TARATSA,
     payload: response.data
