@@ -12,6 +12,7 @@ import TaratsaShow from './taratses/TaratsaShow';
 import TaratsaCreate from './taratses/TaratsaCreate';
 
 import UserCreate from './users/UserCreate';
+import UserSignIn from './users/UserSignIn';
 
 class App extends React.Component {
   render() {
@@ -25,6 +26,7 @@ class App extends React.Component {
               <Route path="/taratses/new" exact component={TaratsaCreate} />
               <Route path="/taratses/:id" exact component={TaratsaShow} />
               <Route path="/users/signup" exact component={UserCreate} />
+              <Route path="/users/signin" exact component={UserSignIn} />
             </Switch>
           </div>
         </Router>

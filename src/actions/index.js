@@ -3,17 +3,33 @@ import history from '../history';
 import {
   CREATE_USER,
   SIGN_IN,
+  SIGN_IN_SUCCESS,
+  SIGN_IN_FAILURE,
   SIGN_OUT,
   FETCH_TARATSES,
   FETCH_TARATSA,
   CREATE_TARATSA
 } from './types';
 
-export const signIn = userId => {
-  return {
-    type: SIGN_IN,
-    payload: userId
-  };
+export const signIn = formValues => async dispatch => {
+  dispatch({
+    type: SIGN_IN
+  });
+
+  try {
+    const response = await taratses.post('/users/signin', formValues);
+    dispatch({
+      type: SIGN_IN_SUCCESS,
+      payload: response.data
+    });
+  } catch(e) {
+    dispatch({
+      type: SIGN_IN_FAILURE,
+      payload: e
+    });
+  }
+
+  history.push('/');
 };
 
 export const signOut = () => {

@@ -1,21 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { createUser } from '../../actions';
+import { signIn } from '../../actions';
 import UserForm from './UserForm';
 
-class UserCreate extends React.Component {
+class UserSignIn extends React.Component {
   onSubmit = formValues => {
-    this.props.createUser(formValues);
+    this.props.signIn(formValues);
   }
 
   render() {
     return (
       <div style={{ marginTop: '1em' }}>
-        <h3>Sign Up</h3>
+        <h3>Sign In</h3>
         <UserForm
-          forSignUp
           onSubmit={this.onSubmit}
-          buttonLabel="Sign Up"
+          buttonLabel="Sign In"
         />
       </div>
     );
@@ -28,5 +27,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { createUser }
-)(UserCreate);
+  { signIn }
+)(UserSignIn);

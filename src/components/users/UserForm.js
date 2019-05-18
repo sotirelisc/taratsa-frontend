@@ -36,6 +36,22 @@ class UserForm extends React.Component {
     this.props.onSubmit(formValues);
   }
 
+  renderRole() {
+    if (this.props.forSignUp) {
+      return (
+        <FormGroup>
+          <Label>Role</Label>
+          <Input tag={Field} component="select" name="role">
+            <option></option>
+            <option value="Regular User">Regular User</option>
+            <option value="Taratsa Owner">Taratsa Owner</option>
+            <option value="Chef">Chef</option>
+          </Input>
+        </FormGroup>
+      );
+    }
+  }
+
   render() {
     return (
       <Form onSubmit={this.props.handleSubmit(this.onSubmit)} style={{ marginTop: '1em' }}>
@@ -50,17 +66,9 @@ class UserForm extends React.Component {
           type="password"
           component={this.renderInput}
         />
-        <FormGroup>
-          <Label>Role</Label>
-          <Input tag={Field} component="select" name="role">
-            <option></option>
-            <option value="Regular User">Regular User</option>
-            <option value="Taratsa Owner">Taratsa Owner</option>
-            <option value="Chef">Chef</option>
-          </Input>
-        </FormGroup>
+        {this.renderRole()}
         <Button color="info">
-          Sign Up
+          {this.props.buttonLabel}
         </Button>
       </Form>
     );

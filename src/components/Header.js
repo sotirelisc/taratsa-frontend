@@ -47,8 +47,8 @@ class Header extends React.Component {
                   <DropdownItem tag={Link} to="/users/signup">
                     Sign Up
                   </DropdownItem>
-                  <DropdownItem>
-                    Option 2
+                  <DropdownItem tag={Link} to="/users/signin">
+                    Sign In
                   </DropdownItem>
                   <DropdownItem divider />
                   <DropdownItem>
