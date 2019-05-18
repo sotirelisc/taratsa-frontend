@@ -9,8 +9,17 @@ import {
   FETCH_TARATSES,
   FETCH_TARATSA,
   CREATE_TARATSA,
-  FETCH_CHEFS
+  FETCH_CHEFS,
+  SELECT_DATE,
+  BOOK_TARATSA
 } from './types';
+
+export const selectDate = date => {
+  return {
+    type: SELECT_DATE,
+    payload: date
+  };
+};
 
 export const signIn = formValues => async dispatch => {
   dispatch({
@@ -61,7 +70,6 @@ export const createTaratsa = (userToken, formValues) => async dispatch => {
       lat: '123456'
     });
   
-    console.log(response);
     dispatch({
       type: CREATE_TARATSA,
       payload: response.data
@@ -73,8 +81,15 @@ export const createTaratsa = (userToken, formValues) => async dispatch => {
   }
 };
 
-export const fetchTaratses = () => async dispatch => {
-  const response = await taratses.get('/taratses');
+export const fetchTaratses = date => async dispatch => {
+  let query = '/taratses'
+
+  if (typeof date !== 'undefined' && date !== '') {
+    const formattedDate = new Date(date).toISOString().slice(0, 10).replace('T', ' ');
+    query += `/date/${formattedDate}`;
+  }
+
+  const response = await taratses.get(query);
 
   dispatch({
     type: FETCH_TARATSES,
@@ -84,7 +99,7 @@ export const fetchTaratses = () => async dispatch => {
 
 export const fetchTaratsa = id => async dispatch => {
   const response = await taratses.get(`/taratses/${id}`);
-  
+
   dispatch({
     type: FETCH_TARATSA,
     payload: response.data
@@ -98,4 +113,24 @@ export const fetchChefs = () => async dispatch => {
     type: FETCH_CHEFS,
     payload: response.data
   });
+};
+
+export const bookTaratsa = (userToken, taratsaId, reservationDate) => async dispatch => {
+  try {
+    const response = await taratses.post('/reservations', {
+      token: userToken,
+      taratsa: taratsaId,
+      reservation_date: reservationDate,
+      notes: ''
+    });
+  
+    console.log(response);
+    dispatch({
+      type: BOOK_TARATSA,
+      payload: response.data
+    });
+  
+  } catch(e) {
+    console.log(e);
+  }
 };

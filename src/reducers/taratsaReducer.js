@@ -3,6 +3,7 @@ import {
   CREATE_TARATSA,
   FETCH_TARATSA,
   FETCH_TARATSES,
+  BOOK_TARATSA,
 } from '../actions/types';
 
 const initialState = {};
@@ -21,8 +22,12 @@ export default (state = initialState, action) => {
       };
     case FETCH_TARATSES:
       return {
-        ...state,
         ..._.mapKeys(action.payload, 'id')
+      };
+    case BOOK_TARATSA:
+      return {
+        ...state,
+        [action.payload.id]: action.payload
       };
     default:
       return state;

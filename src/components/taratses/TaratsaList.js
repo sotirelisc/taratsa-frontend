@@ -1,15 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 import TaratsaRow from './TaratsaRow';
 import {
   CardColumns,
-  Spinner
+  Spinner,
+  FormGroup,
+  Input,
+  Row,
+  Col
 } from 'reactstrap';
-import { fetchTaratses } from '../../actions';
+import { fetchTaratses, selectDate } from '../../actions';
 
 class TaratsaList extends React.Component {
   componentDidMount() {
     this.props.fetchTaratses();
+    this.props.selectDate('2019-05-19');
   }
 
   renderList() {
@@ -33,16 +39,38 @@ class TaratsaList extends React.Component {
     }
   }
 
+  onDateChange = e => {
+    this.props.fetchTaratses(e.target.value);
+    this.props.selectDate(e.target.value);
+  }
+
   render() {
-    if (!this.props.taratses) {
+    if (_.isEmpty(this.props.taratses)) {
       return (
-        <Spinner style={{ width: '3rem', height: '3rem' }} type="grow" />
+        <Spinner className="text-center" style={{ width: '3rem', height: '3rem' }} type="grow" />
       );
     }
     return (
-      <CardColumns style={{ marginTop: '1em' }}>
-        {this.renderList()}
-      </CardColumns>
+      <Row style={{ marginTop: '1em' }}>
+        <Col md="9">
+          <CardColumns>
+            {this.renderList()}
+          </CardColumns>
+        </Col>
+        <Col md="3">
+          <h4>Choose a Date</h4>
+          <FormGroup>
+            <Input
+              type="date"
+              name="date"
+              id="exampleDate"
+              placeholder="date placeholder"
+              value="2019-05-19"
+              onChange={e => this.onDateChange(e)}
+            />
+          </FormGroup>
+        </Col>
+      </Row>
     );
   }
 }
@@ -55,4 +83,5 @@ const mapStateToProps = state => {
 
 export default connect(mapStateToProps, {
   fetchTaratses,
+  selectDate
 })(TaratsaList);
