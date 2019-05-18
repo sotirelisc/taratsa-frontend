@@ -59,7 +59,7 @@ class TaratsaForm extends React.Component {
     return (
       <Form onSubmit={this.props.handleSubmit(this.onSubmit)} style={{ marginTop: '1em' }}>
         <Field
-          name="title"
+          name="name"
           label="Enter Title"
           component={this.renderInput}
         />

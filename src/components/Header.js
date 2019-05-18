@@ -35,9 +35,17 @@ class Header extends React.Component {
     if (this.props.auth.isSignedIn) {
       return (
         <React.Fragment>
-          <NavItem>
-            <NavLink tag={Link} to="/taratses/new">Create Taratsa</NavLink>
-          </NavItem>
+          {
+            this.props.auth.userData.role === 'host'
+            ?
+            (
+            <NavItem>
+              <NavLink tag={Link} to="/taratses/new">Create Taratsa</NavLink>
+            </NavItem>
+            )
+            :
+            null
+          }
           <UncontrolledDropdown nav inNavbar>
             <DropdownToggle nav caret>
               {this.props.auth.userData.firstname}
@@ -68,7 +76,6 @@ class Header extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <div>
         <Navbar color="light" light expand="md">

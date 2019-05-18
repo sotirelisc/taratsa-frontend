@@ -12,12 +12,12 @@ export default (state = initialState, action) => {
     case CREATE_TARATSA:
       return {
         ...state,
-        [action.payload._id]: action.payload
+        [action.payload.id]: action.payload
       };
     case FETCH_TARATSA:
       return {
         ...state,
-        [action.payload._id]: action.payload
+        [action.payload.id]: action.payload
       };
     case FETCH_TARATSES:
       return {

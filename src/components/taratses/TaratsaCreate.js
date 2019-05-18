@@ -9,7 +9,7 @@ class TaratsaCreate extends React.Component {
   }
 
   onSubmit = formValues => {
-    this.props.createTaratsa(formValues);
+    this.props.createTaratsa(this.props.userToken, formValues);
   }
 
   render() {
@@ -28,6 +28,7 @@ class TaratsaCreate extends React.Component {
 const mapStateToProps = state => {
   return {
     chefs: Object.values(state.chefs),
+    userToken: state.auth.userToken
   };
 };
 

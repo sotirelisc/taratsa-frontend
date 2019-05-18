@@ -19,7 +19,6 @@ export const signIn = formValues => async dispatch => {
 
   try {
     const response = await taratses.post('/users/login', formValues);
-    console.log(response)
     dispatch({
       type: SIGN_IN_SUCCESS,
       payload: response.data
@@ -27,7 +26,6 @@ export const signIn = formValues => async dispatch => {
 
     history.push('/');
   } catch(e) {
-    console.log(e);
     dispatch({
       type: SIGN_IN_FAILURE,
       payload: e
@@ -54,15 +52,25 @@ export const createUser = formValues => async dispatch => {
   history.push('/');
 };
 
-export const createTaratsa = formValues => async dispatch => {
-  const response = await taratses.post('/taratses', formValues);
-
-  dispatch({
-    type: CREATE_TARATSA,
-    payload: response.data
-  });
-
-  history.push('/');
+export const createTaratsa = (userToken, formValues) => async dispatch => {
+  try {
+    const response = await taratses.post('/taratses', {
+      ...formValues,
+      token: userToken,
+      long: '123456',
+      lat: '123456'
+    });
+  
+    console.log(response);
+    dispatch({
+      type: CREATE_TARATSA,
+      payload: response.data
+    });
+  
+    history.push('/');
+  } catch(e) {
+    console.log(e);
+  }
 };
 
 export const fetchTaratses = () => async dispatch => {
@@ -85,8 +93,6 @@ export const fetchTaratsa = id => async dispatch => {
 
 export const fetchChefs = () => async dispatch => {
   const response = await taratses.get('/users/chefs');
-
-  console.log(response);
 
   dispatch({
     type: FETCH_CHEFS,

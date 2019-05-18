@@ -14,8 +14,10 @@ const TaratsaRow = ({ id, name, chef, description, image }) => {
         <CardTitle tag={Link} to={`/taratses/${id}`}>
           <h5>{name}</h5>
         </CardTitle>
-        <CardSubtitle style={{ marginTop: '1em' }}>{chef}</CardSubtitle>
-        <CardText style={{ marginTop: '0.5em' }}>{description}</CardText>
+        <CardSubtitle>
+          <small>Menu by chef {chef}</small>
+        </CardSubtitle>
+        <CardText style={{ marginTop: '1em' }}>{description}</CardText>
       </CardBody>
     </Card>
   );
